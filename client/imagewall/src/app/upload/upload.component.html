@@ -10,7 +10,7 @@
         <i class="file icon"></i>
         {{images.length == 0 ? 'Fotos auswählen' : 'Fotos hinzufügen'}}</label>
     <input type="file" (change)="onChange($event)" id="file" style="display:none" accept="image/*">
-    <button *ngIf="images.length > 0" class="ui small primary button" (click)="uploadImages">hochladen</button>
+    <button *ngIf="uploadService.images.length > 0" class="ui small primary button" (click)="uploadImages()">hochladen</button>
 </div>
 </div>
 

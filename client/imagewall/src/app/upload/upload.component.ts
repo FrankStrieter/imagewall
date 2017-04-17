@@ -1,5 +1,8 @@
+import { element } from 'protractor';
 import { UploadService } from './upload.service';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from "rxjs/Observable";
+import 'rxjs/add/observable/forkJoin'
 
 @Component({
   selector: 'app-upload',
@@ -7,7 +10,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./upload.component.css']
 })
 export class UploadComponent implements OnInit {
-  images: any[] = [];
+  images: File[] = [];
+  fileRequests: Observable<{}>[] = [];
 
   constructor(private uploadService: UploadService) { }
 
@@ -15,8 +19,24 @@ export class UploadComponent implements OnInit {
   }
 
   onChange(event) {
-    this.uploadService.images = this.uploadService.images.concat(event.srcElement.files);
-    console.log(event.srcElement.files);
+    //this.uploadService.images = this.uploadService.images.concat(event.srcElement.files);
+    Array.prototype.forEach.call(event.srcElement.files, element => {
+      this.uploadService.images.push(element);
+    });
+    //console.log(event.srcElement.files);
+    //console.log(this.uploadService.images);
+  }
+
+  uploadImages() {
+    this.fileRequests = [];
+    this.uploadService.images.forEach(element => {
+      this.fileRequests.push(this.uploadService.makeFileRequest(element));
+    });
+    console.log(this.fileRequests);
+    Observable.forkJoin(this.fileRequests)
+    .subscribe(res=> {
+      console.log(res);
+    });
   }
 
 }

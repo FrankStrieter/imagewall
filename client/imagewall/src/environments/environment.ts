@@ -6,5 +6,6 @@
 export const environment = {
   production: false,
   backendUrl: 'http://192.168.1.164',
-  backendPort: '1880'
+  backendPort: '1880',
+  uploadPath: '/upload'
 };
