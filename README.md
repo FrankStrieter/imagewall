@@ -1,5 +1,6 @@
-# imagewall
+# Angular imagewall
 This is a laboratory projet for displaying images/photos taken by users accessing a local network.
+See devolpment Branch for further information.
 
 ## Typlical Setup
-Client and Server running on a rasperry pi connected to a router.
+Client(Angular) and Server(Express) running on a raspberry pi connected to a router.
