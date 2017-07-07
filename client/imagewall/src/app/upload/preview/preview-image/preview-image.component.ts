@@ -1,3 +1,4 @@
+import { UploadService } from './../../upload.service';
 //import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
 import {
   Component,
@@ -27,11 +28,13 @@ export class PreviewImageComponent implements OnInit, AfterViewInit, OnChanges {
   loading: boolean;
   fr: FileReader
   fileReaderResult;
+		canvas:any;
+		context:any;
 
   @Input() src: File;
   @Output() onImageclick: EventEmitter < {} > ;
   @ViewChild('imageCanvas') canvasRef;
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(private sanitizer: DomSanitizer,private uploadService:UploadService) {
     this.onImageclick = new EventEmitter < {} > ();
     this.loading = true;
     this.image = this.src;
@@ -39,7 +42,8 @@ export class PreviewImageComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnInit() {
-
+				this.canvas = this.canvasRef.nativeElement;
+    this.context = this.canvas.getContext('2d');
   }
 
   ngOnChanges() {
@@ -48,16 +52,21 @@ export class PreviewImageComponent implements OnInit, AfterViewInit, OnChanges {
     this.fr = new FileReader();
     this.fr.readAsDataURL(this.src);
     console.log(this.fr.result);
-    let canvas = this.canvasRef.nativeElement;
-    let context = canvas.getContext('2d');
+
 
     this.fr.onload = () => {
       this.fileReaderResult = this.fr.result;
       let source = new Image();
       source.crossOrigin = 'Anonymous';
       source.onload = () => {
-        context.drawImage(source, 0, 0, canvas.width, canvas.height);
-        this.image = this.sanitizer.bypassSecurityTrustResourceUrl(canvas.toDataURL());
+							var rect = this.canvas.parentNode.getBoundingClientRect();
+							console.log(rect);
+						 const ratio = source.width / source.height;
+							console.log('ratio', ratio);
+						 this.canvas.height = rect.height;
+						 this.canvas.width = this.canvas.height * ratio;
+        this.context.drawImage(source, 0, 0, this.canvas.width, this.canvas.height);
+        //this.image = this.sanitizer.bypassSecurityTrustResourceUrl(this.canvas.toDataURL());
         this.loading = false;
       };
       source.src = this.fileReaderResult;

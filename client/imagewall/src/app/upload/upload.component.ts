@@ -12,30 +12,34 @@ import 'rxjs/add/observable/forkJoin'
 export class UploadComponent implements OnInit {
   images: File[] = [];
   fileRequests: Observable<{}>[] = [];
-
+  uploadSuccessful:boolean = false;
+		success:boolean = false
   constructor(private uploadService: UploadService) { }
 
   ngOnInit() {
   }
 
   onChange(event) {
+			this.uploadSuccessful = false;
     //this.uploadService.images = this.uploadService.images.concat(event.srcElement.files);
     Array.prototype.forEach.call(event.srcElement.files, element => {
       this.uploadService.images.push(element);
     });
-    //console.log(event.srcElement.files);
-    //console.log(this.uploadService.images);
   }
 
   uploadImages() {
+			this.uploadSuccessful = false;
     this.fileRequests = [];
     this.uploadService.images.forEach(element => {
+					console.log(element);
       this.fileRequests.push(this.uploadService.makeFileRequest(element));
     });
     console.log(this.fileRequests);
     Observable.forkJoin(this.fileRequests)
     .subscribe(res=> {
-      console.log(res);
+						this.uploadSuccessful = true;
+      this.images = [];
+						this.uploadService.images = [];
     });
   }
 

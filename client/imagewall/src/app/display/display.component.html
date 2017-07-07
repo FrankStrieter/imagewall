@@ -1,0 +1,4 @@
+<app-imagecontainer *ngIf="!imgHandler.viewCards"  [isActive]="true" ></app-imagecontainer>
+<app-imagecontainer *ngIf="!imgHandler.viewCards" [isActive]="false" ></app-imagecontainer>
+<app-cardwall [style.height]='height' style="overflow:hidden !important;display:block" *ngIf="imgHandler.viewCards"></app-cardwall>
+<!--<app-imagecontainer></app-imagecontainer>-->

@@ -7,6 +7,7 @@ import { PreviewImageComponent } from './preview/preview-image/preview-image.com
 
 const routes: Routes = [
   { path: '', component: UploadComponent },
+
 ];
 
 @NgModule({

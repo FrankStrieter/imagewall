@@ -4,5 +4,7 @@
 	<div *ngIf="loading" class="ui active loader"></div>
 </div>
 		<canvas style="max-height:100%; max-width:100%; display:block; margin:auto" #imageCanvas></canvas>
+<button type="button" [class.primary]="src.isvisible" class="ui small button" (click)="src.isvisible ? setHidden(src.file) : setActive(src.file)">{{src.isvisible ? 'verbergen' : 'anzeigen'}}</button>
 </div>
+
 

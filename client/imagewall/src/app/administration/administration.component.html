@@ -1,0 +1,19 @@
+<div class="ui segment" style="height:100%;overflow-y:scroll !important">
+<div class="ui container">
+<h3>
+  Alle deine Fotos
+</h3>
+<div class="field">
+<input type="text" [(ngModel)]="time" /> Sekunden
+<button tyoe="button" class="ui small primary button" (click)="setInterval(time)">Intervall speichern</button>
+</div>
+<a href="http://pictureupload:3000/api/v1/images/archive" target="_blank"> Alle Fotos herunterladen</a>
+<div class="ui positive message" *ngIf="settimeoutsuccess">Intervall erfolgreich gesetzt</div>
+<div class="ui error message" *ngIf="settimeouterror">Fehler beim Setzten des Intervalls</div>
+<div>
+<app-preview></app-preview>
+</div>
+</div>
+
+</div>
+

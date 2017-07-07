@@ -5,7 +5,10 @@
 
 export const environment = {
   production: false,
-  backendUrl: 'http://192.168.1.164',
-  backendPort: '1880',
-  uploadPath: '/upload'
+  backendUrl: 'localhost',
+  backendPort: '3000',
+  uploadPath: '/api/v1/images/upload',
+		imageRotatorPath: 'api/v1/images/',
+		imagePath: '/images/',
+		hiddenimagePath: '/images_hidden/'
 };

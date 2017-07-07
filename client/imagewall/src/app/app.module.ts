@@ -8,10 +8,12 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { SuiModule} from 'ng2-semantic-ui';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   { path: 'upload', loadChildren: '../app/upload/upload.module#UploadModule' },
-  { path: 'display', loadChildren: '../app/display/display.module'},
+  { path: 'display', loadChildren: '../app/display/display.module#DisplayModule'},
+		{ path: 'administration',loadChildren: '../app/administration/administration.module#AdministrationModule'},
   { path: '**', redirectTo: 'upload'}
 ];
 
@@ -23,10 +25,12 @@ const routes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+					BrowserAnimationsModule
   ],
   providers: [UploadService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+		exports: [BrowserAnimationsModule]
 })
 
 export class AppModule { }
